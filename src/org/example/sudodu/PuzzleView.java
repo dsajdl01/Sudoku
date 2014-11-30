@@ -35,7 +35,7 @@ public class PuzzleView extends View{
 		super(context);
 		this.game = (Game) context;
 		setFocusable(true);
-		//setFocusableinTouchMode(true);
+		setFocusableInTouchMode(true);
 		setId(ID);
 	}
 	

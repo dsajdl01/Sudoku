@@ -10,12 +10,13 @@ import android.widget.Toast;
 public class Game extends Activity{
 		private static final String TAG = "Sudoku";
 		public static final String KEY_DIFFICULTY = "org.example.sudodu.difficulty";
+		private static final String PREF_PUZZLE="puzzle";
 		protected static final int DIFFICULTY_CONTINUE = -1; 
 		public static final int DIFFICULTY_EASY = 0;
 		public static final int DIFFICULTY_MEDIUM = 1;
 		public static final int DIFFICULTY_HARD = 2;
 		
-		//private static final String PREF_PUZZLE="puzzle";
+		
 		
 		private final int used[][][] = new int[9][9][];
 		private int puzzle[];
@@ -52,17 +53,17 @@ public class Game extends Activity{
 		  @Override
 		  protected void onResume(){
 			super.onResume();
-			//Music.play(this, R.raw.main); 
+			Music.play(this, R.raw.main); 
 		  } 
 		    
 		    @Override 
 		    public void onPause() { 
 		    	super.onPause();
 		    	Log.d(TAG, "onPause");
-		    //	Music.stop(this); 
+		    	Music.stop(this); 
 		    	
 		    	// save the puzzle 
-		    	// getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, toPuzzleString(puzzle)).commit(); 
+		    	 getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, toPuzzleString(puzzle)).commit(); 
 
 		    } 
 		    
@@ -120,7 +121,7 @@ public class Game extends Activity{
 			   for(int i = 0; i < 9; i++){
 				   if(i == y) 
 					   continue;
-				   int t = getTile(x, y);
+				   int t = getTile(x, i);
 				   if(t != 0){
 					   c[t - 1] = t;
 				   }
@@ -159,7 +160,7 @@ public class Game extends Activity{
 			  
 			  switch(diff){
 			  case DIFFICULTY_CONTINUE:
-				//  puz =  getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle);
+				  puz =  getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle);
 				  break;
 			  case DIFFICULTY_HARD:
 				  puz = hardPuzzle;

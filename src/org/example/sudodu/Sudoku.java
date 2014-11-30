@@ -1,16 +1,20 @@
 package org.example.sudodu;
 
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.content.Intent;
+//import android.content.SharedPreferences;
+//import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
+
 
 public class Sudoku extends ActionBarActivity implements OnClickListener{
 
@@ -33,21 +37,25 @@ public class Sudoku extends ActionBarActivity implements OnClickListener{
         exitButton.setOnClickListener((OnClickListener) this);
     }
     
+    
     @Override 
     protected void onResume() { 
     	super.onResume(); 
-        //Music.play(this, R.raw.main); 
+    	//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    	//@SuppressWarnings("unused")
+		//int somePrefValue = Integer.valueOf(prefs.getString("somePrefKey", "1"));
+        Music.play(this, R.raw.main); 
+
     } 
     
     @Override 
     public void onPause() { 
     	super.onPause(); 
-    //	Music.stop(this); 
+    	Music.stop(this);
     } 
 
 
-    
-    public void onClick(View v){
+	public void onClick(View v){
 		switch(v.getId()){
 		case R.id.about_btn:
 			Intent i = new Intent(this, About.class);
@@ -108,17 +116,9 @@ public class Sudoku extends ActionBarActivity implements OnClickListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-       // int id = item.getItemId();
-        //if (id == R.id.action_settings) {
-          //  return true;
-       // }
-        //return super.onOptionsItemSelected(item);#
         switch (item.getItemId()) {
        case  R.id.settings: // only setting
-        startActivity(new Intent(this, Prefs.class));
+    	   getFragmentManager().beginTransaction().replace(android.R.id.content, new Prefs()).commit();
         return true;
         }
         return false;
